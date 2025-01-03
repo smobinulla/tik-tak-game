@@ -3,7 +3,7 @@ name: Build,Analyze,scan
 on:
   push:
     branches:
-      - main
+      - master
 
 
 jobs:
@@ -22,17 +22,7 @@ jobs:
           docker rm game
         
       - name: Update kubeconfig
-        run: aws eks --region ap-south-1 update-kubeconfig --name EKS_CLOUD
+        run: aws eks --region ap-southeast-2 update-kubeconfig --name EKS_CLOUD
 
       - name: Deploy to kubernetes
         run: kubectl delete -f deployment-service.yml
-  
-      - name: Send a Slack Notification
-        if: always()
-        uses: act10ns/slack@v1
-        with:
-          status: ${{ job.status }}
-          steps: ${{ toJson(steps) }}
-          channel: '#githubactions-eks'
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
