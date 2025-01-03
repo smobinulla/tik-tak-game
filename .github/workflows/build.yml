@@ -34,5 +34,5 @@ jobs:
           DOCKER_CLI_ACI: 1
 
       - name: Image scan
-        run: trivy image smobinulla/tik-tac-toe:latest > trivyimage.txt
+        run: trivy image smobinulla/tik-tac-toe:latest > trivyimag.txt
 
